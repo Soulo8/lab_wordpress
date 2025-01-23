@@ -1,0 +1,30 @@
+services:
+
+  wordpress:
+    build: .
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: secret
+      WORDPRESS_DB_NAME: app
+    volumes:
+      - wordpress:/var/www/html
+      - ./themes/custom:/var/www/html/wp-content/themes/custom
+
+  database:
+    image: mysql:9.1
+    restart: always
+    environment:
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - database:/var/lib/mysql
+
+volumes:
+  wordpress:
+  database:
