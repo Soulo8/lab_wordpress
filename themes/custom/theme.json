@@ -3,11 +3,11 @@
     "customTemplates": [
         {
             "name": "custom",
-			"title": "Custom",
+            "title": "Custom",
             "postTypes": [
-				"page",
-				"post"
-			]
+                "page",
+                "post"
+            ]
         }
     ]
 }
