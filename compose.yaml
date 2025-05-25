@@ -1,10 +1,21 @@
 services:
 
-  wordpress:
-    build: .
-    restart: always
+  web:
+    image: nginx:1.27.5
+    volumes:
+      - wordpress:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/global:/etc/nginx/global
+      - ./nginx/templates:/etc/nginx/templates
     ports:
       - "80:80"
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+
+  wordpress:
+    image: wordpress:6.8.1-php8.4-fpm
+    restart: always
     environment:
       WORDPRESS_DB_HOST: database
       WORDPRESS_DB_USER: user
@@ -15,13 +26,13 @@ services:
       - ./themes/custom:/var/www/html/wp-content/themes/custom
 
   database:
-    image: mysql:9.1
+    image: mariadb:11.7.2
     restart: always
     environment:
-      MYSQL_DATABASE: app
-      MYSQL_USER: user
-      MYSQL_PASSWORD: secret
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      MARIADB_DATABASE: app
+      MARIADB_USER: user
+      MARIADB_PASSWORD: secret
+      MARIADB_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - database:/var/lib/mysql
 
