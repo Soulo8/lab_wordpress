@@ -1,0 +1,21 @@
+server {
+    server_name  _;
+    return 302 $scheme://localhost$request_uri;
+}
+
+server {
+    listen ${NGINX_PORT};
+    server_name ${NGINX_HOST};
+    root /var/www/html;
+
+    index index.php;
+
+    include global/restrictions.conf;
+
+    # Additional rules go here.
+
+    # Only include one of the files below.
+    include global/wordpress.conf;
+    # include global/wordpress-ms-subdir.conf;
+    # include global/wordpress-ms-subdomain.conf;
+}

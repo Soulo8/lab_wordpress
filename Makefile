@@ -1,2 +1,2 @@
 sh:
-	docker compose exec wordpress zsh
+	docker compose exec wordpress bash
