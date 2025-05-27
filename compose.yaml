@@ -15,7 +15,6 @@ services:
 
   wordpress:
     image: wordpress:6.8.1-php8.4-fpm
-    restart: always
     environment:
       WORDPRESS_DB_HOST: database
       WORDPRESS_DB_USER: user
@@ -27,7 +26,6 @@ services:
 
   database:
     image: mariadb:11.7.2
-    restart: always
     environment:
       MARIADB_DATABASE: app
       MARIADB_USER: user
